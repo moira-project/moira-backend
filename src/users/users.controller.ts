@@ -1,4 +1,15 @@
-import { Controller } from '@nestjs/common';
+import { Controller, Get, HttpException, UseFilters } from "@nestjs/common";
+import { HttpExceptionFilter } from "src/common/exceptions/http-exception.filter";
+import { UsersService } from "./users.service";
 
-@Controller('users')
-export class UsersController {}
+@UseFilters(HttpExceptionFilter)
+@Controller("users")
+export class UsersController {
+  constructor(private readonly usersService: UsersService) {}
+
+  @Get()
+  getAllUser() {
+    throw new HttpException("api broken", 401);
+    return "get all user api";
+  }
+}
