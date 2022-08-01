@@ -7,9 +7,11 @@ import { User } from "./users/user.entity";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { DataSource } from "typeorm";
 import { LoggerMiddleware } from "./common/middlewares/logger.middleware";
+import { ConfigModule } from "@nestjs/config";
 
 @Module({
   imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRoot({
       type: "mysql",
       host: "localhost",
