@@ -1,4 +1,4 @@
-import { HttpException, Injectable, UnauthorizedException } from "@nestjs/common";
+import { Injectable, UnauthorizedException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { User } from "./user.entity";
@@ -18,13 +18,13 @@ export class UsersService {
     const isExist = await this.usersRepository.findOneOrFail({ where: { email } });
     console.log(isExist);
     if (isExist) {
-      throw new UnauthorizedException("이미 존재하는 이메일 입니다.", 403);
+      throw new UnauthorizedException("이미 존재하는 이메일 입니다.", "403");
     }
     //패스워드를 암호화
     const hashedPassword = await bcrypt.hash(password, 10);
     //db에 저장
-    // const cat = await this.usersRepository.create({ email, name, password: hashedPassword });
-    return cat;
+    const user = await this.usersRepository.create({ email, name, password: hashedPassword });
+    return user;
   }
 
   findAll(): Promise<User[]> {
