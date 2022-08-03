@@ -11,6 +11,10 @@ async function bootstrap() {
   const config = new DocumentBuilder().setTitle("Moira").setDescription("Moira API description").setVersion("0.0.1").build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup("docs", app, document);
+  app.enableCors({
+    origin: true, // 배포할 때는 특정 url 써주기
+    credentials: true,
+  });
   app.useGlobalPipes(new ValidationPipe());
   app.useGlobalFilters(new HttpExceptionFilter());
 
