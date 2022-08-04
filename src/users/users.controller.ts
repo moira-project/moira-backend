@@ -21,7 +21,6 @@ export class UsersController {
     return "edit user";
   }
 
-  @ApiResponse({ status: 500, description: "Server Error..." })
   @ApiOperation({ summary: "회원가입" })
   @Post()
   async signUp(@Body() body: SignUpBodyDto) {
